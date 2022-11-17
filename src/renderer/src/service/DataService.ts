@@ -14,8 +14,8 @@ export default class DataService {
       .then((d) => d.data)
   }
 
-  getCategories = (categories: string, keyword: string): Promise<Record[]> => {
-    return fetch(`${rootUrl}/${categories}/${keyword}`, {
+  getCategories = (): Promise<Record[]> => {
+    return fetch(`${rootUrl}/categories}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
