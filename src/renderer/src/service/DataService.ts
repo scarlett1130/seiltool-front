@@ -1,7 +1,9 @@
-const rootUrl = 'http://localhost:8000/'
+import { Record } from '../types'
+
+const rootUrl = 'http://localhost:8000'
 
 export default class DataService {
-  getAll = (): Promise<any> => {
+  getAll = (): Promise<Record[]> => {
     return fetch(`${rootUrl}`, {
       method: 'GET',
       headers: {
@@ -12,8 +14,8 @@ export default class DataService {
       .then((d) => d.data)
   }
 
-  getDataByCategories = (categories: any): Promise<any> => {
-    return fetch(`${rootUrl}${categories}`, {
+  getFilteredRecords = (categories: string, keyword: string): Promise<Record[]> => {
+    return fetch(`${rootUrl}/${categories}/${keyword}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

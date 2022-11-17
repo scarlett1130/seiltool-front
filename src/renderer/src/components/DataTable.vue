@@ -1,29 +1,24 @@
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
-<script lang="ts">
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import DataService from '../service/DataService'
-import DataTable from 'primevue/datatable'
 
-export default {
-  data(): { data: undefined; dataService: DataService | null } {
-    return {
-      data: undefined,
-      dataService: null
-    }
-  },
-  created() {
-    this.dataService = new DataService()
-  },
-  mounted() {
-    console.log('mounted')
-    this.dataService?.getAll().then((data) => {this.data = data; console.log(data)})
-  }
-}
+const record = ref([])
+const dataService = ref<DataService>(new DataService())
+
+onMounted(() => {
+  dataService.value?.getAll().then((res) => {
+    console.error('res', res)
+    record.value = res
+  })
+})
 </script>
 <template>
   <h1>Hello World</h1>
   <h2>Hello World!!</h2>
+  <Button label="Submit"></Button>
   <div>
-    <DataTable :value="data" responsive-layout="scroll">
+    <DataTable :value="record" responsive-layout="scroll">
       <Column field="operator.content" header="Operator"></Column>
       <Column field="ordz.content" header="OZL"></Column>
       <Column field="category.content" header="Category"></Column>
