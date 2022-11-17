@@ -12,3 +12,7 @@ export type Record = {
   ordz: RecordProperty
   site: RecordProperty
 }
+
+export type Category = {
+  code: string
+}
