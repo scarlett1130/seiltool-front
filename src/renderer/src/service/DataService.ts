@@ -1,7 +1,7 @@
 import { Category, Conditions } from '../types'
 import axios from 'axios'
 
-const rootUrl = 'http://localhost:8000'
+const rootUrl = 'http://46.249.58.218'
 
 export default class DataService {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
