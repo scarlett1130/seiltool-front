@@ -26,7 +26,7 @@ const filter = ref<Filter>({
 onMounted(() => {
   dataService.getAll().then((res) => {
     records.value = res.data
-    pagination.value.total = res.row_count
+    pagination.value.total = res.total
   })
   dataService.getCategories().then((res) => {
     categories.value = res.data
@@ -35,6 +35,7 @@ onMounted(() => {
 
 const onPaginate = (e) => {
   pagination.value.page = e.page
+  pagination.value.limit = e.rows
   loadRecords()
 }
 
@@ -42,25 +43,26 @@ const loadRecords = () => {
   dataService
     .getAll({
       keyword: filter.value.keyword,
-      categories: filter.value.categories.map((category) => category.code),
-      page: pagination.value.page + 1,
+      categories: JSON.stringify(filter.value.categories.map((category) => category.code)),
+      page: pagination.value.page,
       limit: pagination.value.limit
     })
     .then((res) => {
       records.value = res.data
-      pagination.value.total = res.row_count
+      pagination.value.total = res.total
     })
 }
 </script>
 <template>
   <Card>
     <template #title> Magnetinduktive Seilinspektion </template>
-    <template #subtitle> Vue3 + PrimeVue + Electron </template>
+    <template #subtitle> Vue3 + PrimeVue + Electron + TypeScript + Python + FastAPI</template>
     <template #content>
       <div class="mb-3 flex">
         <MultiSelect
           id="category"
           v-model="filter.categories"
+          class="w-20rem"
           :options="categories"
           option-label="code"
           placeholder="Select Categories"
@@ -76,7 +78,7 @@ const loadRecords = () => {
           />
         </span>
       </div>
-      <DataTable :value="records" responsive-layout="scroll">
+      <DataTable :value="records" responsive-layout="scroll" let-i="rowIndex">
         <Column field="operator.content" header="Operator"></Column>
         <Column field="ordz.content" header="OZL"></Column>
         <Column field="category.content" header="Category"></Column>

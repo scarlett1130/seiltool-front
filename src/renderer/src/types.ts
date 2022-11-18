@@ -16,3 +16,10 @@ export type Record = {
 export type Category = {
   code: string
 }
+
+export type Conditions = {
+  keyword: string
+  categories: string
+  page: number
+  limit: number
+}
