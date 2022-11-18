@@ -32,3 +32,16 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
+
+### Build Execute File
+
+```bash
+# For windows
+$ electron-builder --win
+
+# For macOS
+$ electron-builder --mac
+
+# For Linux
+$ electron-builder --linux
+```
