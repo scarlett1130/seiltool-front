@@ -45,3 +45,4 @@ $ electron-builder --mac
 # For Linux
 $ electron-builder --linux
 ```
+"# seiltool-front" 
